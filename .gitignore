@@ -108,3 +108,5 @@ dmypy.json
 .Rhistory
 *.Rproj
 .pytype
+*-test.png
+
