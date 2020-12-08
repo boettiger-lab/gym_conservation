@@ -16,12 +16,12 @@ def simulate_mdp(env, model, reps=1):
     row = []
     for rep in range(reps):
         obs = env.reset()
-        quota = 0.0
+        unscaled_action = 0.0
         reward = 0.0
         for t in range(env.Tmax):
             ## record
             unscaled_state = env.get_unscaled_state(obs)
-            row.append([t, unscaled_state, quota, reward, int(rep)])
+            row.append([t, unscaled_state, unscaled_action, reward, int(rep)])
 
             ## Predict and implement action
             action, _state = model.predict(obs)
@@ -32,7 +32,7 @@ def simulate_mdp(env, model, reps=1):
                 action = action[0]
             if isinstance(reward, np.ndarray):
                 reward = reward[0]
-            quota = env.get_quota(action)
+            unscaled_action = env.get_unscaled_action(action)
 
             if done:
                 break
@@ -55,9 +55,9 @@ def estimate_policyfn(env, model, reps=1, n=50):
                 action = action[0]
 
             unscaled_state = env.get_unscaled_state(obs)
-            quota = env.get_quota(action)
+            unscaled_action = env.get_unscaled_action(action)
 
-            row.append([unscaled_state, quota, rep])
+            row.append([unscaled_state, unscaled_action, rep])
 
     df = DataFrame(row, columns=["state", "action", "rep"])
     return df

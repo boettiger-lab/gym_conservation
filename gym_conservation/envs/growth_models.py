@@ -174,7 +174,7 @@ class ModelUncertainty(BaseEcologyEnv):
         self.model = np.random.choice(self.models)
         self.years_passed = 0
         self.reward = 0
-        self.harvest = 0
+        self.unscaled_action = 0
         return self.state
 
 
