@@ -13,7 +13,7 @@ class BaseEcologyEnv(gym.Env):
 
     def __init__(
         self,
-        params={"r": 0.3, "K": 1, "sigma": 0.05, "x0": 0.75, "cost": 2.0, "benefit": 1.0},
+        params={"r": 0.3, "K": 1, "sigma": 0.0, "x0": 0.1, "cost": 2.0, "benefit": 1.0},
         Tmax=100,
         file=None,
     ):
