@@ -205,7 +205,7 @@ def may(x, params):
         q = params["q"]
         b = params["b"]
         exp_mu = x + x * r * (1 - x / M) - a * np.power(x, q) / (np.power(x, q) + np.power(b, q))
-        mu = np.log(exp_mu)
+        mu = np.log(np.clip(exp_mu, 0, np.inf))
     return np.maximum(0, np.random.lognormal(mu, params["sigma"]))
 
 
