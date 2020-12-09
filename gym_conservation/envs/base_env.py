@@ -110,7 +110,7 @@ class BaseEcologyEnv(gym.Env):
         """
         increase population by 'unscaled_action'
         """
-
+        self.unscaled_action = unscaled_action
         self.unscaled_state = self.unscaled_state + self.unscaled_action
         return self.unscaled_action
 

@@ -6,8 +6,8 @@ class user_action:
         self.env = env
 
     def predict(self, obs, **kwargs):
-        state = self.env.get_state(obs)
+        state = self.env.get_unscaled_state(obs)
         prompt = "state: " + str(state) + ". Your action: "
-        quota = input(prompt)
-        action = self.env.get_action(float(quota))
+        unscaled_action = input(prompt)
+        action = self.env.get_action(float(unscaled_action))
         return action, obs

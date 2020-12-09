@@ -17,7 +17,7 @@ df = env.simulate(model)
 env.plot(df, "A2C-low.png")
 
 ## Evaluate model
-mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=5)
+mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
 
 
 
@@ -31,4 +31,4 @@ df = env.simulate(model)
 env.plot(df, "A2C-high.png")
 
 ## Evaluate model
-mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=5)
+mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
