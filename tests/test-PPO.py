@@ -7,7 +7,7 @@ from stable_baselines3.common.evaluation import evaluate_policy
 
 
 def test_ppo():
-    env = gym.make("conservation-v0")
+    env = gym.make("conservation-v2")
     check_env(env)
     model = PPO("MlpPolicy", env, verbose=0)
     model.learn(total_timesteps=200)
