@@ -13,7 +13,7 @@ class BaseEcologyEnv(gym.Env):
 
     def __init__(
         self,
-        params={"r": 0.3, "K": 1, "sigma": 0.01, "x0": 0.75},
+        params={"r": 0.3, "K": 1, "sigma": 0.05, "x0": 0.75, "cost": 2.0, "benefit": 1.0},
         Tmax=100,
         file=None,
     ):
@@ -22,6 +22,8 @@ class BaseEcologyEnv(gym.Env):
         self.K = params["K"]
         self.r = params["r"]
         self.sigma = params["sigma"]
+        self.cost = params["cost"]
+        self.benefit = params["benefit"]
         self.init_state = params["x0"]
         self.params = params
 
@@ -66,7 +68,7 @@ class BaseEcologyEnv(gym.Env):
         self.get_state(self.unscaled_state)
 
         ## should be the instanteous reward, not discounted
-        self.reward = -np.power(self.unscaled_action, 2) + self.unscaled_state
+        self.reward = -np.power(self.unscaled_action, self.cost) + self.benefit * self.unscaled_state
         self.years_passed += 1
         done = bool(self.years_passed > self.Tmax)
 

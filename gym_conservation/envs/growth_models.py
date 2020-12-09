@@ -6,9 +6,9 @@ from gym_conservation.envs.base_env import BaseEcologyEnv
 
 
 class Allen(BaseEcologyEnv):
-    def __init__(self, r=0.3, K=1, C=0.5, sigma=0.01, init_state=0.75, Tmax=100, file=None):
+    def __init__(self, r=0.3, K=1, C=0.5, sigma=0.01, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file=None):
         super().__init__(
-            params={"r": r, "K": K, "sigma": sigma, "C": C, "x0": init_state},
+            params={"r": r, "K": K, "sigma": sigma, "C": C, "x0": init_state, "cost": cost, "benefit": benefit},
             Tmax=Tmax,
             file=file,
         )
@@ -19,9 +19,9 @@ class Allen(BaseEcologyEnv):
 
 
 class BevertonHolt(BaseEcologyEnv):
-    def __init__(self, r=0.3, K=1, sigma=0.01, init_state=0.75, Tmax=100, file=None):
+    def __init__(self, r=0.3, K=1, sigma=0.01, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file=None):
         super().__init__(
-            params={"r": r, "K": K, "sigma": sigma, "x0": init_state},
+            params={"r": r, "K": K, "sigma": sigma, "x0": init_state, "cost": cost, "benefit": benefit},
             Tmax=Tmax,
             file=file,
         )
@@ -40,6 +40,8 @@ class Myers(BaseEcologyEnv):
         theta=3.0,
         sigma=0.01,
         init_state=1.5,
+        cost=1.0,
+        benefit=5.0,
         Tmax=100,
         file=None,
     ):
@@ -51,6 +53,8 @@ class Myers(BaseEcologyEnv):
                 "theta": theta,
                 "M": M,
                 "x0": init_state,
+                "cost": cost,
+                "benefit": benefit,
             },
             Tmax=Tmax,
             file=file,
@@ -61,8 +65,8 @@ class Myers(BaseEcologyEnv):
         return self.unscaled_state
 
 
-# (r =.7, beta = 1.2, q = 3, b = 0.15, a = 0.2) # lower-state peak is optimal
-# (r =.7, beta = 1.5, q = 3, b = 0.15, a = 0.2) # higher-state peak is optimal
+# (r =.7, M = 1.2, q = 3, b = 0.15, a = 0.2) # lower-state peak is optimal
+# (r =.7, M = 1.5, q = 3, b = 0.15, a = 0.2) # higher-state peak is optimal
 class May(BaseEcologyEnv):
     def __init__(
         self,
@@ -74,6 +78,8 @@ class May(BaseEcologyEnv):
         sigma=0.01,
         a=0.2,
         init_state=0.75,
+        cost=1.0,
+        benefit=5.0,
         Tmax=100,
         file=None,
     ):
@@ -87,6 +93,8 @@ class May(BaseEcologyEnv):
                 "a": a,
                 "M": M,
                 "x0": init_state,
+                "cost": cost,
+                "benefit": benefit,
             },
             Tmax=Tmax,
             file=file,
@@ -98,9 +106,9 @@ class May(BaseEcologyEnv):
 
 
 class Ricker(BaseEcologyEnv):
-    def __init__(self, r=0.3, K=1, sigma=0.01, init_state=0.75, Tmax=100, file=None):
+    def __init__(self, r=0.3, K=1, sigma=0.01, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file=None):
         super().__init__(
-            params={"r": r, "K": K, "sigma": sigma, "x0": init_state},
+            params={"r": r, "K": K, "sigma": sigma, "x0": init_state, "cost": cost, "benefit": benefit},
             Tmax=Tmax,
             file=file,
         )
@@ -111,9 +119,9 @@ class Ricker(BaseEcologyEnv):
 
 
 class NonStationary(BaseEcologyEnv):
-    def __init__(self, r=0.8, K=1, sigma=0.01, alpha=-0.007, init_state=0.75, Tmax=100, file=None):
+    def __init__(self, r=0.8, K=1, sigma=0.01, alpha=-0.007, cost=1.0, benefit=5.0, init_state=0.75, Tmax=100, file=None):
         super().__init__(
-            params={"r": r, "K": K, "sigma": sigma, "alpha": alpha, "x0": init_state},
+            params={"r": r, "K": K, "sigma": sigma, "alpha": alpha, "x0": init_state, "cost": cost, "benefit": benefit},
             Tmax=Tmax,
             file=file,
         )
@@ -129,16 +137,9 @@ class ModelUncertainty(BaseEcologyEnv):
         self,
         models=["allen", "beverton_holt", "myers", "may", "ricker"],
         params={
-            "allen": {"r": 0.3, "K": 1.0, "sigma": 0.01, "C": 0.5, "x0": 0.75},
-            "beverton_holt": {"r": 0.3, "K": 1, "sigma": 0.01, "x0": 0.75},
-            "myers": {
-                "r": 1.0,
-                "K": 1.0,
-                "M": 1.0,
-                "theta": 3.0,
-                "sigma": 0.01,
-                "x0": 1.5,
-            },
+            "allen": {"r": 0.3, "K": 1.0, "sigma": 0.01, "C": 0.5, "x0": 0.75, "cost": 1.0, "benefit": 5.0},
+            "beverton_holt": {"r": 0.3, "K": 1, "sigma": 0.01, "x0": 0.75, "cost": 1.0, "benefit": 5.0},
+            "myers": {"r": 1.0, "K": 1.0, "M": 1.0, "theta": 3.0, "sigma": 0.01, "x0": 1.5, "cost": 1.0, "benefit": 5.0},
             "may": {
                 "r": 0.7,
                 "K": 1.5,
@@ -148,8 +149,10 @@ class ModelUncertainty(BaseEcologyEnv):
                 "sigma": 0.01,
                 "a": 0.2,
                 "x0": 0.75,
+                "cost": 1.0,
+                "benefit": 5.0,
             },
-            "ricker": {"r": 0.3, "K": 1, "sigma": 0.01, "x0": 0.75},
+            "ricker": {"r": 0.3, "K": 1, "sigma": 0.01, "x0": 0.75, "cost": 1.0, "benefit": 5.0},
         },
         Tmax=100,
         file=None,
