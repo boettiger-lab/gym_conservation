@@ -34,3 +34,5 @@ register(
     id="conservation-v6",
     entry_point="gym_conservation.envs:ModelUncertainty",
 )
+
+from gym_conservation import models

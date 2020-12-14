@@ -119,16 +119,57 @@ class Ricker(BaseEcologyEnv):
 
 
 class NonStationary(BaseEcologyEnv):
-    def __init__(self, r=0.8, K=1, sigma=0.0, alpha=-0.007, cost=1.0, benefit=5.0, init_state=0.75, Tmax=100, file=None):
+    def __init__(
+        self,
+        r=0.7,
+        K=1.5,
+        M=1.2,
+        q=3,
+        b=0.15,
+        sigma=0.0,
+        a=0.15,
+        alpha=0.001,
+        init_state=0.8,
+        cost=1.0,
+        benefit=5.0,
+        Tmax=100,
+        file=None,
+    ):
         super().__init__(
-            params={"r": r, "K": K, "sigma": sigma, "alpha": alpha, "x0": init_state, "cost": cost, "benefit": benefit},
+            params={
+                "r": r,
+                "K": K,
+                "sigma": sigma,
+                "q": q,
+                "b": b,
+                "a": a,
+                "M": M,
+                "x0": init_state,
+                "cost": cost,
+                "benefit": benefit,
+                "alpha": alpha,
+            },
             Tmax=Tmax,
             file=file,
         )
 
+        # Best if cts actions / observations are normalized to a [-1, 1] domain
+        # Two possible actions!
+        # self.action_space = spaces.Box(
+        #    np.array([-1, -1], dtype=np.float32),
+        #    np.array([1, 1], dtype=np.float32),
+        #    dtype=np.float32,
+        # )
+
+    def perform_action(self, unscaled_action):
+        self.unscaled_action = unscaled_action
+        # Can move away from tipping point
+        self.params["a"] = np.maximum(0, self.params["a"] - self.unscaled_action / 100.0)
+        return self.unscaled_action
+
     def population_draw(self):
-        self.params["r"] = self.params["r"] + self.params["alpha"]
-        self.unscaled_state = beverton_holt(self.unscaled_state, self.params)
+        self.params["a"] = self.params["a"] + self.params["alpha"]
+        self.unscaled_state = may(self.unscaled_state, self.params)
         return self.unscaled_state
 
 

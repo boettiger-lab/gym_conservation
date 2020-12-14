@@ -34,8 +34,6 @@ def simulate_mdp(env, model, reps=1):
                 reward = reward[0]
             unscaled_action = env.get_unscaled_action(action)
 
-            if done:
-                break
     df = DataFrame(row, columns=["time", "state", "action", "reward", "rep"])
     return df
 

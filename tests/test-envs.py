@@ -21,15 +21,15 @@ def test_v2():
 def test_basics():
     env = gym.make("conservation-v2", init_state=0.7)
     assert env.unscaled_state == env.init_state
-    
+
     x = env.get_unscaled_action(env.get_action(0.0))
     assert (x < 0.01) & (x > -0.01)
-    
+
     x = env.get_unscaled_state(env.get_state(0.1))
     assert (x < 0.11) & (x > 0.1 - 0.01)
-    
+
     env.reset()
-    
+
     a = env.unscaled_action
     s = env.unscaled_state
     x = env.perform_action(0.3)
@@ -43,5 +43,3 @@ def test_user():
     model = user_action(env)
     # df = env.simulate(model)
     # env.plot(df, "user-may-test.png")
-
-
