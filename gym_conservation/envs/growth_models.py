@@ -149,7 +149,7 @@ class NonStationary(BaseEcologyEnv):
                 "cost": cost,
                 "benefit": benefit,
                 "alpha": alpha,
-                "betea": beta,
+                "beta": beta,
             },
             Tmax=Tmax,
             file=file,
