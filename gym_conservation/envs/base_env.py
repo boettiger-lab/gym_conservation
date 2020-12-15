@@ -86,10 +86,10 @@ class BaseEcologyEnv(gym.Env):
         self.reward = 0
         self.unscaled_action = 0
         return self.state
-        
+
     def compute_reward(self):
         return -np.power(self.unscaled_action, self.cost) + self.benefit * self.unscaled_state
-        
+
     def render(self, mode="human"):
         return csv_entry(self)
 

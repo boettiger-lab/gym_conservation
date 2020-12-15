@@ -129,6 +129,7 @@ class NonStationary(BaseEcologyEnv):
         sigma=0.0,
         a=0.15,
         alpha=0.001,
+        beta=0.5,
         init_state=0.8,
         cost=1.0,
         benefit=5.0,
@@ -148,6 +149,7 @@ class NonStationary(BaseEcologyEnv):
                 "cost": cost,
                 "benefit": benefit,
                 "alpha": alpha,
+                "betea": beta,
             },
             Tmax=Tmax,
             file=file,
@@ -171,10 +173,11 @@ class NonStationary(BaseEcologyEnv):
         self.params["a"] = self.params["a"] + self.params["alpha"]
         self.unscaled_state = may(self.unscaled_state, self.params)
         return self.unscaled_state
-    
+
     def compute_reward(self):
-        return -np.power(self.unscaled_action, self.cost) + self.benefit * self.unscaled_state / (1 + self.unscaled_state)
-  
+        return -np.power(self.unscaled_action, self.cost) + self.benefit * self.unscaled_state / (
+            self.params["beta"] + self.unscaled_state
+        )
 
 
 class ModelUncertainty(BaseEcologyEnv):
