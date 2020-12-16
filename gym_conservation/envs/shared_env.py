@@ -6,7 +6,7 @@ from pandas import DataFrame, read_csv
 
 
 def csv_entry(self):
-    row_contents = [self.years_passed, self.state[0], self.action, self.reward]
+    row_contents = [self.years_passed, self.unscaled_state, self.unscaled_action, self.reward]
     csv_writer = writer(self.write_obj)
     csv_writer.writerow(row_contents)
     return row_contents
