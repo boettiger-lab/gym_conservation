@@ -15,7 +15,7 @@ class BaseEcologyEnv(gym.Env):
         self,
         params={"r": 0.3, "K": 1, "sigma": 0.0, "x0": 0.1, "cost": 2.0, "benefit": 1.0},
         Tmax=100,
-        file=None,
+        file="render.csv",
     ):
 
         ## parameters
