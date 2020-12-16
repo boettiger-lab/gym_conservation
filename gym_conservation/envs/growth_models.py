@@ -6,7 +6,7 @@ from gym_conservation.envs.base_env import BaseEcologyEnv
 
 
 class Allen(BaseEcologyEnv):
-    def __init__(self, r=0.3, K=1, C=0.5, sigma=0.0, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file=None):
+    def __init__(self, r=0.3, K=1, C=0.5, sigma=0.0, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file="render.csv"):
         super().__init__(
             params={"r": r, "K": K, "sigma": sigma, "C": C, "x0": init_state, "cost": cost, "benefit": benefit},
             Tmax=Tmax,
@@ -19,7 +19,7 @@ class Allen(BaseEcologyEnv):
 
 
 class BevertonHolt(BaseEcologyEnv):
-    def __init__(self, r=0.3, K=1, sigma=0.0, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file=None):
+    def __init__(self, r=0.3, K=1, sigma=0.0, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file="render.csv"):
         super().__init__(
             params={"r": r, "K": K, "sigma": sigma, "x0": init_state, "cost": cost, "benefit": benefit},
             Tmax=Tmax,
@@ -43,7 +43,7 @@ class Myers(BaseEcologyEnv):
         cost=1.0,
         benefit=5.0,
         Tmax=100,
-        file=None,
+        file="render.csv",
     ):
         super().__init__(
             params={
@@ -81,7 +81,7 @@ class May(BaseEcologyEnv):
         cost=1.0,
         benefit=5.0,
         Tmax=100,
-        file=None,
+        file="render.csv",
     ):
         super().__init__(
             params={
@@ -106,7 +106,7 @@ class May(BaseEcologyEnv):
 
 
 class Ricker(BaseEcologyEnv):
-    def __init__(self, r=0.3, K=1, sigma=0.0, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file=None):
+    def __init__(self, r=0.3, K=1, sigma=0.0, init_state=0.75, cost=1.0, benefit=5.0, Tmax=100, file="render.csv"):
         super().__init__(
             params={"r": r, "K": K, "sigma": sigma, "x0": init_state, "cost": cost, "benefit": benefit},
             Tmax=Tmax,
@@ -134,7 +134,7 @@ class NonStationary(BaseEcologyEnv):
         cost=1.0,
         benefit=5.0,
         Tmax=100,
-        file=None,
+        file="render.csv",
     ):
         super().__init__(
             params={
@@ -203,7 +203,7 @@ class ModelUncertainty(BaseEcologyEnv):
             "ricker": {"r": 0.3, "K": 1, "sigma": 0.0, "x0": 0.75, "cost": 1.0, "benefit": 5.0},
         },
         Tmax=100,
-        file=None,
+        file="render.csv",
     ):
         super().__init__(
             Tmax=Tmax,
