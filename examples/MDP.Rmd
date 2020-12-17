@@ -109,7 +109,7 @@ may <- function(a)
       0)
   }
 
-seq(0.15, 0.22, length.out = 100) %>%
+seq(0.12, 0.32, length.out = 100) %>%
   map_dfr(function(a) tibble(x = states, f = may(a)(x,0) - x, a = a), .id = "scenario") %>% 
   ggplot(aes(x, f)) + 
     geom_line(aes(group = scenario, col = as.numeric(scenario)), lwd = 1) +

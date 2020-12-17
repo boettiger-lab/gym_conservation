@@ -5,10 +5,6 @@ register(
     entry_point="gym_conservation.envs:Allen",
 )
 
-register(
-    id="conservation-v1",
-    entry_point="gym_conservation.envs:BevertonHolt",
-)
 
 register(
     id="conservation-v2",
@@ -17,22 +13,12 @@ register(
 
 register(
     id="conservation-v3",
-    entry_point="gym_conservation.envs:Myers",
-)
-
-register(
-    id="conservation-v4",
-    entry_point="gym_conservation.envs:Ricker",
+    entry_point="gym_conservation.envs:NonStationaryV3",
 )
 
 register(
     id="conservation-v5",
-    entry_point="gym_conservation.envs:NonStationary",
-)
-
-register(
-    id="conservation-v6",
-    entry_point="gym_conservation.envs:ModelUncertainty",
+    entry_point="gym_conservation.envs:NonStationaryV5",
 )
 
 from gym_conservation import models

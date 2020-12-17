@@ -1,7 +1,5 @@
 import math
-
 import numpy as np
-
 from gym_conservation.envs.base_env import BaseEcologyEnv
 
 
@@ -116,68 +114,6 @@ class Ricker(BaseEcologyEnv):
     def population_draw(self):
         self.unscaled_state = ricker(self.unscaled_state, self.params)
         return self.unscaled_state
-
-
-class NonStationary(BaseEcologyEnv):
-    def __init__(
-        self,
-        r=0.7,
-        K=1.5,
-        M=1.2,
-        q=3,
-        b=0.15,
-        sigma=0.0,
-        a=0.20,
-        alpha=0.001,
-        beta=0.25,
-        init_state=0.8,
-        cost=1.0,
-        benefit=5.0,
-        Tmax=100,
-        file="render.csv",
-    ):
-        super().__init__(
-            params={
-                "r": r,
-                "K": K,
-                "sigma": sigma,
-                "q": q,
-                "b": b,
-                "a": a,
-                "M": M,
-                "x0": init_state,
-                "cost": cost,
-                "benefit": benefit,
-                "alpha": alpha,
-                "beta": beta,
-            },
-            Tmax=Tmax,
-            file=file,
-        )
-
-        # Best if cts actions / observations are normalized to a [-1, 1] domain
-        # Two possible actions!
-        # self.action_space = spaces.Box(
-        #    np.array([-1, -1], dtype=np.float32),
-        #    np.array([1, 1], dtype=np.float32),
-        #    dtype=np.float32,
-        # )
-
-    def perform_action(self, unscaled_action):
-        self.unscaled_action = unscaled_action
-        # Can move away from tipping point
-        self.params["a"] = np.maximum(0, self.params["a"] - self.unscaled_action / 100.0)
-        return self.unscaled_action
-
-    def population_draw(self):
-        self.params["a"] = self.params["a"] + self.params["alpha"]
-        self.unscaled_state = may(self.unscaled_state, self.params)
-        return self.unscaled_state
-
-    def compute_reward(self):
-        return -np.power(self.unscaled_action, self.cost) + self.benefit * self.unscaled_state / (
-            self.params["beta"] + self.unscaled_state
-        )
 
 
 class ModelUncertainty(BaseEcologyEnv):
