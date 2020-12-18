@@ -109,10 +109,10 @@ class NonStationaryV5(BaseEcologyEnv):
         self.params["a"] = np.maximum(0.0, self.params["a"] - self.unscaled_action / (2 * self.params["K"] * 100.0))
         return self.unscaled_action
 
-    def compute_reward(self):
-        return self.params["benefit"] * self.unscaled_state / (self.params["beta"] + self.unscaled_state) - np.power(
-            self.unscaled_action, self.params["cost"]
-        )
+#    def compute_reward(self):
+#        return self.params["benefit"] * self.unscaled_state / (self.params["beta"] + self.unscaled_state) - np.power(
+#            self.unscaled_action, self.params["cost"]
+#        )
     def reset(self):
         self.state = np.array([self.init_state / self.K - 1])
         self.unscaled_state = self.init_state
