@@ -13,18 +13,20 @@ def test_v0():
     check_env(env)
 
 
-
 def test_v2():
     env = gym.make("conservation-v2")
     check_env(env)
+
 
 def test_v3():
     env = gym.make("conservation-v3")
     check_env(env)
 
+
 def test_v5():
     env = gym.make("conservation-v5")
     check_env(env)
+
 
 def test_basics():
     env = gym.make("conservation-v2", init_state=0.7)

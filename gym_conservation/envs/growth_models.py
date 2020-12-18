@@ -1,5 +1,7 @@
 import math
+
 import numpy as np
+
 from gym_conservation.envs.base_env import BaseEcologyEnv
 
 
