@@ -19,8 +19,8 @@ class NonStationaryV3(BaseEcologyEnv):
         alpha=0.001,
         beta=1.0,
         init_state=0.8,
-        cost=1.0,
-        benefit=5.0,
+        cost=10.0,
+        benefit=15.0,
         Tmax=100,
         file="render.csv",
     ):
@@ -73,8 +73,8 @@ class NonStationaryV5(BaseEcologyEnv):
         alpha=0.001,
         beta=1.0,
         init_state=0.8,
-        cost=1.0,
-        benefit=5.0,
+        cost=10.0,
+        benefit=15.0,
         Tmax=100,
         file="render.csv",
     ):
@@ -124,6 +124,10 @@ class NonStationaryV5(BaseEcologyEnv):
         return self.state
         
         
+        
+        
+        
+        
 
 class NonStationaryV4(BaseEcologyEnv):
     def __init__(
@@ -138,8 +142,8 @@ class NonStationaryV4(BaseEcologyEnv):
         alpha=0.001,
         beta=1.0,
         init_state=0.8,
-        cost=1.0,
-        benefit=5.0,
+        cost=10.0,
+        benefit=15.0,
         Tmax=100,
         file="render.csv",
     ):
