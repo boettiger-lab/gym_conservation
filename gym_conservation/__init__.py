@@ -17,6 +17,11 @@ register(
 )
 
 register(
+    id="conservation-v4",
+    entry_point="gym_conservation.envs:NonStationaryV4",
+)
+
+register(
     id="conservation-v5",
     entry_point="gym_conservation.envs:NonStationaryV5",
 )
