@@ -96,6 +96,7 @@ class NonStationaryV5(BaseEcologyEnv):
             Tmax=Tmax,
             file=file,
         )
+        self.init_a = a
 
     def population_draw(self):
         self.params["a"] = self.params["a"] + self.params["alpha"]
@@ -112,7 +113,17 @@ class NonStationaryV5(BaseEcologyEnv):
         return self.params["benefit"] * self.unscaled_state / (self.params["beta"] + self.unscaled_state) - np.power(
             self.unscaled_action, self.params["cost"]
         )
-
+    def reset(self):
+        self.state = np.array([self.init_state / self.K - 1])
+        self.unscaled_state = self.init_state
+        self.years_passed = 0
+        self.params["a"] = self.init_a
+        ## for tracking only
+        self.reward = 0
+        self.unscaled_action = 0
+        return self.state
+        
+        
 
 class NonStationaryV4(BaseEcologyEnv):
     def __init__(
