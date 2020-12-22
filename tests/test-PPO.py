@@ -11,10 +11,6 @@ def test_ppo():
     check_env(env)
     model = PPO("MlpPolicy", env, verbose=0)
     model.learn(total_timesteps=200)
-
-    ## Simulate a run with the trained model, visualize result
     df = env.simulate(model)
     env.plot(df, "PPO-test.png")
-
-    ## Evaluate model
     mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=5)

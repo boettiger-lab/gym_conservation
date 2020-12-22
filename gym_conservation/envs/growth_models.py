@@ -1,7 +1,8 @@
 import math
-import numpy as np
 
+import numpy as np
 from gym.envs.registration import register
+
 from gym_conservation.envs.base_env import BaseEcologyEnv
 
 
@@ -217,9 +218,6 @@ population_model = {
     "may": may,
     "ricker": ricker,
 }
-
-
-
 
 
 register(

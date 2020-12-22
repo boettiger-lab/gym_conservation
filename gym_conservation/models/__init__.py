@@ -1,1 +1,1 @@
-from gym_conservation.models.policies import user_action, fixed_action, target_state
+from gym_conservation.models.policies import fixed_action, target_state, user_action

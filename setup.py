@@ -1,4 +1,5 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
+
 setup(
     name="gym_conservation",
     version="0.0.2.1",
@@ -17,7 +18,7 @@ setup(
         "AI",
         "Artificial Intelligence",
     ],
-    packages=find_packages(exclude=['docs', 'scripts', 'tests']),
+    packages=find_packages(exclude=["docs", "scripts", "tests"]),
     install_requires=["gym", "numpy", "pandas", "matplotlib"],
     extras_require={
         "tests": [
