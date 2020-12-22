@@ -5,8 +5,7 @@ from stable_baselines3.common.env_checker import check_env
 import gym_conservation
 from gym_conservation.models.policies import user_action
 
-np.random.seed(0)
-
+np.random.seed(42)
 
 def test_v0():
     env = gym.make("conservation-v0")
