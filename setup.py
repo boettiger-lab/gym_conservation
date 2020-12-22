@@ -19,6 +19,7 @@ setuptools.setup(
         "AI",
         "Artificial Intelligence",
     ],
+    packages=find_packages(exclude=['docs', 'scripts', 'tests']),
     install_requires=["gym", "numpy", "pandas", "matplotlib"],
     extras_require={
         "tests": [
