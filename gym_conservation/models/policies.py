@@ -1,5 +1,3 @@
-import numpy as np
-
 
 class user_action:
     def __init__(self, env, **kwargs):
@@ -22,7 +20,7 @@ class fixed_action:
         state = self.env.get_unscaled_state(obs)
         unscaled_action = self.fixed_action
         action = self.env.get_action(float(unscaled_action))
-        return action, obs
+        return action, state
 
 
 class target_state:

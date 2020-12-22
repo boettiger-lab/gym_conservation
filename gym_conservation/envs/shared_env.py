@@ -2,11 +2,16 @@ from csv import writer
 
 import matplotlib.pyplot as plt
 import numpy as np
-from pandas import DataFrame, read_csv
+from pandas import DataFrame
 
 
 def csv_entry(self):
-    row_contents = [self.years_passed, self.unscaled_state, self.unscaled_action, self.reward]
+    row_contents = [
+        self.years_passed,
+        self.unscaled_state,
+        self.unscaled_action,
+        self.reward,
+    ]
     csv_writer = writer(self.write_obj)
     csv_writer.writerow(row_contents)
     return row_contents
@@ -19,15 +24,15 @@ def simulate_mdp(env, model, reps=1):
         unscaled_action = 0.0
         reward = 0.0
         for t in range(env.Tmax):
-            ## record
+            # record
             unscaled_state = env.get_unscaled_state(obs)
             row.append([t, unscaled_state, unscaled_action, reward, int(rep)])
 
-            ## Predict and implement action
+            # Predict and implement action
             action, _state = model.predict(obs)
             obs, reward, done, info = env.step(action)
 
-            ## discrete actions are not arrays, but cts actions are
+            # discrete actions are not arrays, but cts actions are
             if isinstance(action, np.ndarray):
                 action = action[0]
             if isinstance(reward, np.ndarray):

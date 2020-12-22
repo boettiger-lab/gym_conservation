@@ -2,13 +2,13 @@ from setuptools import find_packages, setup
 
 setup(
     name="gym_conservation",
-    version="0.0.2.1",
+    version="0.0.3",
     license="MIT",
     description="Provide gym environments for reinforcement learning",
     author="Carl Boettiger & Marcus Lapeyrolerie",
     author_email="cboettig@gmail.com",
     url="https://github.com/boettiger-lab/gym_conservation",
-    download_url="https://github.com/boettiger-lab/gym_conservation/archive/v0.0.1.tar.gz",
+    download_url="https://github.com/boettiger-lab/gym_conservation/archive/v0.0.3.tar.gz",
     keywords=[
         "RL",
         "Reinforcement Learning",
@@ -47,8 +47,9 @@ setup(
             "sphinx-autodoc-typehints",
         ],
     },
+    # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable"
     classifiers=[
-        "Development Status :: 3 - Alpha",  # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",

@@ -1,11 +1,8 @@
-import math
-
 import gym
 import numpy as np
-from gym import error, logger, spaces, utils
-from gym.utils import seeding
+from gym import spaces
 
-from gym_conservation.envs.shared_env import *
+from gym_conservation.envs.shared_env import csv_entry, simulate_mdp, plot_mdp, estimate_policyfn, plot_policyfn
 
 
 class BaseEcologyEnv(gym.Env):
@@ -13,12 +10,19 @@ class BaseEcologyEnv(gym.Env):
 
     def __init__(
         self,
-        params={"r": 0.3, "K": 1, "sigma": 0.0, "x0": 0.1, "cost": 2.0, "benefit": 1.0},
+        params={
+            "r": 0.3,
+            "K": 1,
+            "sigma": 0.0,
+            "x0": 0.1,
+            "cost": 2.0,
+            "benefit": 1.0,
+        },
         Tmax=100,
         file="render.csv",
     ):
 
-        ## parameters
+        # parameters
         self.K = params["K"]
         self.r = params["r"]
         self.sigma = params["sigma"]
@@ -27,7 +31,7 @@ class BaseEcologyEnv(gym.Env):
         self.init_state = params["x0"]
         self.params = params
 
-        ## Preserve these for reset
+        # Preserve these for reset
         self.unscaled_state = self.init_state
         self.reward = 0
         self.unscaled_action = 0
@@ -36,13 +40,13 @@ class BaseEcologyEnv(gym.Env):
         self.file = file
 
         # for render() method only
-        if file != None:
+        if file is not None:
             self.write_obj = open(file, "w+")
 
-        ## Initial state
+        # Initial state
         self.state = np.array([self.init_state / self.K - 1])
 
-        ## Best if cts actions / observations are normalized to a [-1, 1] domain
+        # Best if cts actions / observations are normalized to a [-1, 1] domain
         self.action_space = spaces.Box(
             np.array([-1], dtype=np.float32),
             np.array([1], dtype=np.float32),
@@ -56,18 +60,18 @@ class BaseEcologyEnv(gym.Env):
 
     def step(self, action):
 
-        ## Map from re-normalized model space to [0,2K] real space
+        # Map from re-normalized model space to [0,2K] real space
         unscaled_action = self.get_unscaled_action(action)
         self.get_unscaled_state(self.state)
 
-        ## Apply unscaled_action and population growth
+        # Apply unscaled_action and population growth
         self.unscaled_action = self.perform_action(unscaled_action)
         self.population_draw()
 
-        ## Map population back to system state (normalized space):
+        # Map population back to system state (normalized space):
         self.get_state(self.unscaled_state)
 
-        ## should be the instanteous reward, not discounted
+        # should be the instanteous reward, not discounted
         self.reward = self.compute_reward()
         self.years_passed += 1
         done = bool(self.years_passed > self.Tmax)
@@ -82,19 +86,22 @@ class BaseEcologyEnv(gym.Env):
         self.unscaled_state = self.init_state
         self.years_passed = 0
 
-        ## for tracking only
+        # for tracking only
         self.reward = 0
         self.unscaled_action = 0
         return self.state
 
     def compute_reward(self):
-        return self.benefit * self.unscaled_state - self.unscaled_action * self.cost
+        return (
+            self.benefit * self.unscaled_state
+            - self.unscaled_action * self.cost
+        )
 
     def render(self, mode="human"):
         return csv_entry(self)
 
     def close(self):
-        if self.file != None:
+        if self.file is not None:
             self.write_obj.close()
 
     def simulate(env, model, reps=1):
@@ -120,7 +127,9 @@ class BaseEcologyEnv(gym.Env):
     def population_draw(self):
         self.unscaled_state = (
             self.unscaled_state
-            + self.r * self.unscaled_state * (1.0 - self.unscaled_state / self.K)
+            + self.r
+            * self.unscaled_state
+            * (1.0 - self.unscaled_state / self.K)
             + self.unscaled_state * self.sigma * np.random.normal(0, 1)
         )
         self.unscaled_state = np.clip(self.unscaled_state, 0, 2 * self.K)
@@ -132,9 +141,11 @@ class BaseEcologyEnv(gym.Env):
         """
         if isinstance(self.action_space, gym.spaces.discrete.Discrete):
             unscaled_action = (action / self.n_actions) * self.K
-        ## Continuous Actions
+        # Continuous Actions
         else:
-            action = np.clip(action, self.action_space.low, self.action_space.high)[0]
+            action = np.clip(
+                action, self.action_space.low, self.action_space.high
+            )[0]
             unscaled_action = (action + 1) * self.K
         return unscaled_action
 

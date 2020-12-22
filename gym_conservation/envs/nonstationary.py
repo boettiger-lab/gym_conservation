@@ -1,5 +1,3 @@
-import math
-
 import numpy as np
 from gym.envs.registration import register
 
@@ -55,7 +53,7 @@ class NonStationaryV3(BaseEcologyEnv):
         self.unscaled_state = self.init_state
         self.years_passed = 0
         self.params["a"] = self.init_a
-        ## for tracking only
+        # for tracking only
         self.reward = 0
         self.unscaled_action = 0
         return self.state
@@ -107,7 +105,11 @@ class NonStationaryV5(BaseEcologyEnv):
     def perform_action(self, unscaled_action):
         self.unscaled_action = unscaled_action
         # Can move away from tipping point
-        self.params["a"] = np.maximum(0.0, self.params["a"] - self.unscaled_action / (2 * self.params["K"] * 100.0))
+        self.params["a"] = np.maximum(
+            0.0,
+            self.params["a"]
+            - self.unscaled_action / (2 * self.params["K"] * 100.0),
+        )
         return self.unscaled_action
 
     #    def compute_reward(self):
@@ -119,7 +121,7 @@ class NonStationaryV5(BaseEcologyEnv):
         self.unscaled_state = self.init_state
         self.years_passed = 0
         self.params["a"] = self.init_a
-        ## for tracking only
+        # for tracking only
         self.reward = 0
         self.unscaled_action = 0
         return self.state
@@ -171,18 +173,25 @@ class NonStationaryV4(BaseEcologyEnv):
     def perform_action(self, unscaled_action):
         self.unscaled_action = unscaled_action
         # Can move away from tipping point
-        self.params["a"] = np.maximum(0.0, self.params["a"] - self.unscaled_action / (2 * self.params["K"] * 100.0))
+        self.params["a"] = np.maximum(
+            0.0,
+            self.params["a"]
+            - self.unscaled_action / (2 * self.params["K"] * 100.0),
+        )
         return self.unscaled_action
 
     def compute_reward(self):
-        return self.params["benefit"] * float(self.unscaled_state > 0.3) - self.params["cost"] * self.unscaled_action
+        return (
+            self.params["benefit"] * float(self.unscaled_state > 0.3)
+            - self.params["cost"] * self.unscaled_action
+        )
 
     def reset(self):
         self.state = np.array([self.init_state / self.K - 1])
         self.unscaled_state = self.init_state
         self.years_passed = 0
         self.params["a"] = self.init_a
-        ## for tracking only
+        # for tracking only
         self.reward = 0
         self.unscaled_action = 0
         return self.state
