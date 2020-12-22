@@ -1,6 +1,5 @@
-import setuptools
-
-setuptools.setup(
+from setuptools import setup, find_packages
+setup(
     name="gym_conservation",
     version="0.0.2.1",
     license="MIT",
