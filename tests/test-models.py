@@ -3,10 +3,7 @@ from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.evaluation import evaluate_policy
 
 import gym_conservation
-from gym_conservation.models.policies import (
-    fixed_action,
-    target_state
-)
+from gym_conservation.models.policies import fixed_action, target_state
 
 
 def test_fixed_action():

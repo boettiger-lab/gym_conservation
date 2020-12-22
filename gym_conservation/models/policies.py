@@ -1,4 +1,3 @@
-
 class user_action:
     def __init__(self, env, **kwargs):
         self.env = env
