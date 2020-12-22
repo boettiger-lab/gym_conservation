@@ -15,8 +15,8 @@ model.learn(total_timesteps=300000)
 
 ## Simulate a run with the trained model, visualize result
 df = env.simulate(model, reps = 1)
-env.plot(df, "SAC-v5-linear-test.png")
+env.plot(df, "results/v5-SAC.png")
 
 ## Evaluate model
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
-print("algo:", "SAC", "env:", "conservation-v3", "mean reward:", mean_reward, "std:", std_reward)
+print("v5 with SAC", "mean reward:", mean_reward, "std:", std_reward)

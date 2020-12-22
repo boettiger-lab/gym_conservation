@@ -9,7 +9,7 @@ import gym_conservation
 
 seed = 0
 
-env = gym.make("conservation-v2", init_state = 0.1, sigma = 0.05)
+env = gym.make("conservation-v5")
 
 ## TD3 ######################################################################
 hyper = {'gamma': 0.999, 'lr': 0.0001, 'batch_size': 128, 
@@ -55,7 +55,9 @@ model.learn(total_timesteps=300000)
 
 ## Simulate a run with the trained model, visualize result
 df = env.simulate(model)
-env.plot(df, "results/TD3.png")
+env.plot(df, "results/v5-TD3.png")
 
 ## Evaluate model
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=5)
+print("TD3-v5", "mean reward:", mean_reward, "std:", std_reward)
+

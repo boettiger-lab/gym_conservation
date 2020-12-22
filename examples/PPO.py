@@ -7,14 +7,15 @@ from stable_baselines3.common.evaluation import evaluate_policy
 import gym_conservation
 
 
-env = gym.make("conservation-v2", init_state = 0.1)
+env = gym.make("conservation-v5")
 check_env(env)
 model = PPO("MlpPolicy", env, verbose=0)
-model.learn(total_timesteps=20000)
+model.learn(total_timesteps=200000)
 
 ## Simulate a run with the trained model, visualize result
 df = env.simulate(model)
-env.plot(df, "PPO-test.png")
+env.plot(df, "results/v5-PPO.png")
 
 ## Evaluate model
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=5)
+print("v5 with PPO", "mean reward:", mean_reward, "std:", std_reward)
