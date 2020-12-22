@@ -11,7 +11,7 @@ import gym_conservation
 K = 1.5
 alpha = 0.001
 A = alpha * 100 * 2 * K 
-env = gym.make("conservation-v5", K = K, alpha = alpha, benefit = 15, cost = 10)
+env = gym.make("conservation-v5")
 
 
 model = fixed_action(env, fixed_action = A )
