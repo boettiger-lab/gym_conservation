@@ -4,6 +4,7 @@ import numpy as np
 
 from gym_conservation.envs.base_env import BaseEcologyEnv
 from gym_conservation.envs.growth_models import may
+from gym.envs.registration import register
 
 
 class NonStationaryV3(BaseEcologyEnv):
@@ -190,3 +191,19 @@ class NonStationaryV4(BaseEcologyEnv):
         self.reward = 0
         self.unscaled_action = 0
         return self.state
+
+
+register(
+    id="conservation-v3",
+    entry_point="gym_conservation.envs:NonStationaryV3",
+)
+
+register(
+    id="conservation-v4",
+    entry_point="gym_conservation.envs:NonStationaryV4",
+)
+
+register(
+    id="conservation-v5",
+    entry_point="gym_conservation.envs:NonStationaryV5",
+)
