@@ -7,6 +7,7 @@ from gym_conservation.models.policies import user_action
 
 np.random.seed(42)
 
+
 def test_v0():
     env = gym.make("conservation-v0")
     env.reset()
