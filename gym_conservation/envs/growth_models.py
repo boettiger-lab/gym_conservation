@@ -318,7 +318,7 @@ population_model = {
 
 register(
     id="conservation-v0",
-    entry_point="gym_conservation.envs:Allen",
+    entry_point="gym_conservation.envs:Ricker",
 )
 
 
