@@ -11,28 +11,29 @@ import gym_conservation
 K = 1.5
 alpha = 0.001
 A = alpha * 100 * 2 * K 
-env = gym.make("conservation-v5", sigma=0.0, cost = 20, a = 0.18)
+env = gym.make("conservation-v5", sigma=0.2, benefit = 1.0, cost = 1.0, a = 0.19)
 
 
-model = fixed_action(env, fixed_action = A )
+model = fixed_action(env, fixed_action = A ) # .3, calibrated to steady-state
 df = env.simulate(model, reps = 5)
 env.plot(df, "fixed-plot.png")
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
 print("steady-state", "mean reward:", mean_reward, "std:", std_reward)
 
-model = fixed_action(env, fixed_action = .9 )
+# over-conserve, slowly move away from tipping point
+model = fixed_action(env, fixed_action = A + .1 )
 df = env.simulate(model, reps = 5)
-env.plot(df, "high-plot.png")
+env.plot(df, "over-conserve.png")
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
-print("high", "mean reward:", mean_reward, "std:", std_reward)
+print("over-conserve", "mean reward:", mean_reward, "std:", std_reward)
 
 
-
-model = fixed_action(env, fixed_action = A - 0.1 )
+# under-conserve, slows decline only
+model = fixed_action(env, fixed_action = A - .1 )
 df = env.simulate(model, reps = 5)
-env.plot(df, "low-plot.png")
+env.plot(df, "under-conserve.png")
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
-print("low", "mean reward:", mean_reward, "std:", std_reward)
+print("under-conserve", "mean reward:", mean_reward, "std:", std_reward)
 
 
 
@@ -45,18 +46,21 @@ print("no-action", "mean reward:", mean_reward, "std:", std_reward)
 
 
 ## Target-state only applies to models where the action changes state (v1, v3)
-model = target_a(env, 0.21)
-df = env.simulate(model, reps = 5)
-env.plot(df, "target_a0.21.png")
-mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
-print("target a = 0.21", "mean reward:", mean_reward, "std:", std_reward)
+## For V5 we target an "a" value.  larger than ~ 0.215 is tipping point
 
 
-model = target_a(env, 0.15 )
+model = target_a(env, 0.19 )
 df = env.simulate(model, reps = 5)
-env.plot(df, "target_a_0.15.png")
+env.plot(df, "target_a_0.19.png")
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
-print("target a=0.15", "mean reward:", mean_reward, "std:", std_reward)
+print("target a=0.19", "mean reward:", mean_reward, "std:", std_reward)
+
+
+model = target_a(env, 0.13 )
+df = env.simulate(model, reps = 5)
+env.plot(df, "target_a_0.13.png")
+mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=50)
+print("target a=0.13", "mean reward:", mean_reward, "std:", std_reward)
 
 
 model = target_a(env, 0.05 )
