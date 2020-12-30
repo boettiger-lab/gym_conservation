@@ -114,6 +114,6 @@ df <- seq(0.1, 0.26, by = 0.001) %>%
 df %>% 
   ggplot(aes(x, f)) + 
     geom_line(aes(group = a, col = a), lwd = 1) +
-    geom_line(data=filter(df, a == 0.200), col = "purple", lwd = 1) +
+    geom_line(data=dplyr::filter(df, near(a, 0.215)), col = "purple", lwd = 1) +
     geom_hline(aes(yintercept = 0)) + coord_cartesian(ylim = c(-.2, .1))
 ```

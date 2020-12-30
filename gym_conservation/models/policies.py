@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class user_action:
     def __init__(self, env, **kwargs):
         self.env = env
@@ -30,5 +33,17 @@ class target_state:
     def predict(self, obs, **kwargs):
         state = self.env.get_unscaled_state(obs)
         unscaled_action = self.target_state - state
+        action = self.env.get_action(float(unscaled_action))
+        return action, obs
+
+
+class target_a:
+    def __init__(self, env, target_a=0.2, **kwargs):
+        self.env = env
+        self.target_a = target_a
+
+    def predict(self, obs, **kwargs):
+        delta = np.maximum(0, self.env.params["a"] - self.target_a)
+        unscaled_action = delta * (2 * self.env.params["K"] * 100.0)
         action = self.env.get_action(float(unscaled_action))
         return action, obs
