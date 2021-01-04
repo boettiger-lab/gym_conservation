@@ -24,7 +24,7 @@ class BaseEcologyEnv(gym.Env):
             "cost": 2.0,
             "benefit": 1.0,
         },
-        Tmax=100,
+        Tmax=500,
         file="render.csv",
     ):
 
@@ -100,7 +100,7 @@ class BaseEcologyEnv(gym.Env):
     def compute_reward(self):
         return (
             self.benefit * self.unscaled_state
-            - self.unscaled_action * self.cost
+            - np.power(self.unscaled_action, self.cost)
         )
 
     def render(self, mode="human"):

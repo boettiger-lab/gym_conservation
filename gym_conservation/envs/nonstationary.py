@@ -4,6 +4,8 @@ from gym.envs.registration import register
 from gym_conservation.envs.base_env import BaseEcologyEnv
 from gym_conservation.envs.growth_models import may
 
+# Consider stochastic change in "a",
+# Consider dual-control with actions on both state and parameter
 
 class NonStationaryV3(BaseEcologyEnv):
     """
@@ -28,7 +30,7 @@ class NonStationaryV3(BaseEcologyEnv):
         init_state=0.8,
         cost=10.0,
         benefit=15.0,
-        Tmax=100,
+        Tmax=500,
         file="render.csv",
     ):
         super().__init__(
@@ -92,7 +94,7 @@ class NonStationaryV5(BaseEcologyEnv):
         init_state=0.8,
         cost=1.0,
         benefit=1.0,
-        Tmax=100,
+        Tmax=500,
         file="render.csv",
     ):
         super().__init__(
@@ -130,6 +132,12 @@ class NonStationaryV5(BaseEcologyEnv):
         )
         return self.unscaled_action
 
+    def compute_reward(self):
+        return (
+            self.benefit * self.unscaled_state / (1 + self.unscaled_state)
+            - np.power(self.unscaled_action, self.cost)
+        )
+
     def reset(self):
         self.state = np.array([self.init_state / self.K - 1])
         self.unscaled_state = self.init_state
@@ -153,14 +161,14 @@ class NonStationaryV6(NonStationaryV5):
         M=1.2,
         q=3,
         b=0.15,
-        sigma=0.15,
+        sigma=0.2,
         a=0.19,
         alpha=0.001,
         beta=1.0,
         init_state=0.8,
-        cost=1.0,
+        cost=2.0,
         benefit=1.0,
-        Tmax=100,
+        Tmax=500,
         file="render.csv",
     ):
         super().__init__(
