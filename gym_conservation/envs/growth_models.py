@@ -1,5 +1,4 @@
 import numpy as np
-from gym.envs.registration import register
 
 from gym_conservation.envs.base_env import BaseEcologyEnv
 
@@ -314,15 +313,3 @@ population_model = {
     "may": may,
     "ricker": ricker,
 }
-
-
-register(
-    id="conservation-v0",
-    entry_point="gym_conservation.envs:Ricker",
-)
-
-
-register(
-    id="conservation-v2",
-    entry_point="gym_conservation.envs:May",
-)

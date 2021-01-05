@@ -1,11 +1,11 @@
 import numpy as np
-from gym.envs.registration import register
 
 from gym_conservation.envs.base_env import BaseEcologyEnv
 from gym_conservation.envs.growth_models import may
 
 # Consider stochastic change in "a",
 # Consider dual-control with actions on both state and parameter
+
 
 class NonStationaryV3(BaseEcologyEnv):
     """
@@ -133,10 +133,9 @@ class NonStationaryV5(BaseEcologyEnv):
         return self.unscaled_action
 
     def compute_reward(self):
-        return (
-            self.benefit * self.unscaled_state / (1 + self.unscaled_state)
-            - np.power(self.unscaled_action, self.cost)
-        )
+        return self.benefit * self.unscaled_state / (
+            1 + self.unscaled_state
+        ) - np.power(self.unscaled_action, self.cost)
 
     def reset(self):
         self.state = np.array([self.init_state / self.K - 1])
@@ -188,19 +187,3 @@ class NonStationaryV6(NonStationaryV5):
             file=file,
         )
         self.init_a = a
-
-
-register(
-    id="conservation-v3",
-    entry_point="gym_conservation.envs:NonStationaryV3",
-)
-
-register(
-    id="conservation-v6",
-    entry_point="gym_conservation.envs:NonStationaryV6",
-)
-
-register(
-    id="conservation-v5",
-    entry_point="gym_conservation.envs:NonStationaryV5",
-)
