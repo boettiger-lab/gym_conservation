@@ -260,7 +260,7 @@ def allen(x, params):
             * (1 - params["C"])
             / params["K"]
         )
-    return np.maximum(0, np.random.lognormal(mu, params["sigma"]))
+    return np.maximum(0, np.random.lognormal(mu, params["sigma"], x.size))
 
 
 def beverton_holt(x, params):
@@ -269,7 +269,7 @@ def beverton_holt(x, params):
     with np.errstate(divide="ignore"):
         B = np.clip(params["K"], 0, np.inf) / np.clip(params["r"], 0.0, np.inf)
         mu = np.log(A) + np.log(x) - np.log(1 + x / B)
-    return np.maximum(0, np.random.lognormal(mu, params["sigma"]))
+    return np.maximum(0, np.random.lognormal(mu, params["sigma"], x.size))
 
 
 def may(x, params):
@@ -285,7 +285,8 @@ def may(x, params):
             - a * np.power(x, q) / (np.power(x, q) + np.power(b, q))
         )
         mu = np.log(np.clip(exp_mu, 0, np.inf))
-    return np.maximum(0, np.random.lognormal(mu, params["sigma"]))
+    state = np.random.lognormal(mu, params["sigma"], x.size)
+    return np.maximum(0, state)
 
 
 # be careful that K is chosen correctly (independent of M) to ensure
@@ -298,13 +299,13 @@ def myers(x, params):
             + params["theta"] * np.log(x)
             - np.log(1 + np.power(x, params["theta"]) / params["M"])
         )
-    return np.maximum(0, np.random.lognormal(mu, params["sigma"]))
+    return np.maximum(0, np.random.lognormal(mu, params["sigma"], x.size))
 
 
 def ricker(x, params):
     with np.errstate(divide="ignore"):
         mu = np.log(x) + params["r"] * (1 - x / params["K"])
-    return np.maximum(0, np.random.lognormal(mu, params["sigma"]))
+    return np.maximum(0, np.random.lognormal(mu, params["sigma"], x.size))
 
 
 population_model = {
