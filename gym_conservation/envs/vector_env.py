@@ -4,6 +4,7 @@ import gym
 import numpy as np
 from gym import spaces
 from gym.envs.registration import register
+
 from gym_conservation.envs.growth_models import may
 
 
@@ -90,16 +91,22 @@ class VectorEcologyEnv(gym.Env):
     def compute_reward(self, state, action):
         a = self.get_unscaled_action(action)
         s = self.get_unscaled_state(state)
-        reward = self.params["benefit"] * s / (1 + s) - np.power(a, self.params["cost"])
+        reward = self.params["benefit"] * s / (1 + s) - np.power(
+            a, self.params["cost"]
+        )
         return reward
-        
+
     def render(self, mode="human"):
         state = self.get_unscaled_state(self.state)
         action = self.get_unscaled_action(self.action)
         reward = self.reward
         csv_writer = writer(self.write_obj)
         for i in range(self.reps):
-            row_contents = [self.years_passed, state[i], action, reward[i], i]
+            row_contents = [self.years_passed, 
+                            state[i], 
+                            action,
+                            reward,
+                            i]
             csv_writer.writerow(row_contents)
         return None
 
@@ -124,7 +131,9 @@ class VectorEcologyEnv(gym.Env):
         if isinstance(self.action_space, gym.spaces.discrete.Discrete):
             unscaled_action = (action / self.n_actions) * self.params["K"]
         else:
-            action = np.clip(action, self.action_space.low, self.action_space.high)[0]
+            action = np.clip(
+                action, self.action_space.low, self.action_space.high
+            )[0]
             unscaled_action = (action + 1) * self.params["K"]
         return unscaled_action
 
