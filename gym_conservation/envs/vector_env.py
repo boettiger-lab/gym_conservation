@@ -102,11 +102,7 @@ class VectorEcologyEnv(gym.Env):
         reward = self.reward
         csv_writer = writer(self.write_obj)
         for i in range(self.reps):
-            row_contents = [self.years_passed, 
-                            state[i], 
-                            action,
-                            reward,
-                            i]
+            row_contents = [self.years_passed, state[i], action, reward, i]
             csv_writer.writerow(row_contents)
         return None
 
