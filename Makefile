@@ -2,7 +2,8 @@ SHELL=/bin/bash
 LINT_PATHS=gym_conservation/ tests/ setup.py
 
 install:
-	pip install -e .
+	python -m pip install --upgrade pip
+	pip install .[extra,tests,docs]
 
 pytest:
 	./scripts/run_tests.sh
