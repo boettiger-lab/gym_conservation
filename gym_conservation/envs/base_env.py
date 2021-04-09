@@ -84,8 +84,7 @@ class BaseEcologyEnv(gym.Env):
 
         if self.unscaled_state <= 0.0:
             done = True
-
-        return self.state, self.reward, done, {}
+        return self.state[0], self.reward[0], done, {}
 
     def reset(self):
         self.state = np.array([self.init_state / self.K - 1])
@@ -98,9 +97,8 @@ class BaseEcologyEnv(gym.Env):
         return self.state
 
     def compute_reward(self):
-        return (
-            self.benefit * self.unscaled_state
-            - np.power(self.unscaled_action, self.cost)
+        return self.benefit * self.unscaled_state - np.power(
+            self.unscaled_action, self.cost
         )
 
     def render(self, mode="human"):
