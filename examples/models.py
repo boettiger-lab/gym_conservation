@@ -15,7 +15,7 @@ A = alpha * 100 * 2 * K
 ## Optimal solution is steady-state at whatever value a is set to, since larger recovery is proportionally more costly, while benefits saturate
 ## stochasticity gives incentive to improve conservation if tipping point is 'in range'
 
-env = gym.make("conservation-v5", cost=2.0, benefit = 1, Tmax=500, a = .19, sigma = 0.2)
+env = gym.make("conservation-v5")
 
 
 model = fixed_action(env, fixed_action = A ) # .3, calibrated to steady-state
