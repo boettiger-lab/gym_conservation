@@ -7,6 +7,7 @@ from gym_conservation.envs.growth_models import may
 # Consider stochastic change in "a",
 # Consider dual-control with actions on both state and parameter
 
+
 class NonStationaryV3(BaseEcologyEnv):
     """
     non-stationary parameter `a` slowly moves system to a tipping point.
@@ -133,10 +134,9 @@ class NonStationaryV5(BaseEcologyEnv):
         return self.unscaled_action
 
     def compute_reward(self):
-        return (
-            self.benefit * self.unscaled_state / (1 + self.unscaled_state)
-            - np.power(self.unscaled_action, self.cost)
-        )
+        return self.benefit * self.unscaled_state / (
+            1 + self.unscaled_state
+        ) - np.power(self.unscaled_action, self.cost)
 
     def reset(self):
         self.state = np.array([self.init_state / self.K - 1])

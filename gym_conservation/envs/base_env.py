@@ -97,9 +97,8 @@ class BaseEcologyEnv(gym.Env):
         return self.state
 
     def compute_reward(self):
-        return (
-            self.benefit * self.unscaled_state
-            - np.power(self.unscaled_action, self.cost)
+        return self.benefit * self.unscaled_state - np.power(
+            self.unscaled_action, self.cost
         )
 
     def render(self, mode="human"):
