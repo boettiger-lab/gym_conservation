@@ -12,3 +12,4 @@ def test_ppo():
     df = env.simulate(model)
     env.plot(df, "PPO-test.png")
     mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=5)
+    env.plot_policy(df, "PPO-policy.png")
