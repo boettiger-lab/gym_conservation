@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="gym_conservation",
-    version="0.0.5",
+    version="0.0.6",
     license="MIT",
     description="Provide gym environments for reinforcement learning",
     author="Carl Boettiger & Marcus Lapeyrolerie",
