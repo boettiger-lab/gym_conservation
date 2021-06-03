@@ -29,7 +29,7 @@ def simulate_mdp(env, model, reps=1):
             row.append([t, unscaled_state, unscaled_action, reward, int(rep)])
 
             # Predict and implement action
-            action, _state = model.predict(obs)
+            action, _state = model.predict(obs, determinstic=True)
             obs, reward, done, info = env.step(action)
 
             # discrete actions are not arrays, but cts actions are
@@ -53,7 +53,7 @@ def estimate_policyfn(env, model, reps=1, n=50):
     )
     for rep in range(reps):
         for obs in state_range:
-            action, _state = model.predict(obs)
+            action, _state = model.predict(obs, determinstic=True)
             if isinstance(action, np.ndarray):
                 action = action[0]
 
