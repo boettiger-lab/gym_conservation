@@ -29,7 +29,7 @@ def simulate_mdp(env, model, reps=1):
             row.append([t, unscaled_state, unscaled_action, reward, int(rep)])
 
             # Predict and implement action
-            action, _state = model.predict(obs, determinstic=True)
+            action, _state = model.predict(obs, deterministic=True)
             obs, reward, done, info = env.step(action)
 
             # discrete actions are not arrays, but cts actions are
