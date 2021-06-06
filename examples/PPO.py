@@ -10,7 +10,7 @@ import gym_conservation
 env = gym.make("conservation-v2")
 check_env(env)
 model = PPO("MlpPolicy", env, verbose=0)
-model.learn(total_timesteps=200000)
+model.learn(total_timesteps=200)
 
 ## Simulate a run with the trained model, visualize result
 df = env.simulate(model)
