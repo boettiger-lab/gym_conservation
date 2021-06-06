@@ -53,7 +53,7 @@ def estimate_policyfn(env, model, reps=1, n=50):
     )
     for rep in range(reps):
         for obs in state_range:
-            action, _state = model.predict(obs, determinstic=True)
+            action, _state = model.predict(obs, deterministic=True)
             if isinstance(action, np.ndarray):
                 action = action[0]
 
